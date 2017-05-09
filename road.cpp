@@ -3,7 +3,7 @@
 
 Road::Road() {
     roadID=roadCounter;//need a counter for the amount of road classes we have so we can put proper roadID
-    lineNum=2;
+    laneNum=2;
     direction=2;
     distance=50;
     lampCounter=0;
@@ -12,10 +12,10 @@ int Road::GetroadID() {
     return roadID; }
 void Road::SetroadID(int val) {
     roadID = val; }
-int Road::GetlineNum() {
-    return lineNum; }
-void Road::SetlineNum(int val) {
-    lineNum = val; }
+int Road::GetlaneNum() {
+    return laneNum; }
+void Road::SetlaneNum(int val) {
+    laneNum = val; }
 int Road::Getdirection() {
     return direction; }
 void Road::Setdirection(int val) {
@@ -45,7 +45,7 @@ int Road::Getkey_y() {
 void Road::Setkey_y(int val) {
     key_y = val; }
 float Road::ComputeCapacity(float tempCapacity){
-    tempCapacity=(distance*lineNum);
+    tempCapacity=(distance*laneNum);
     tempCapacity=tempCapacity-(tempCapacity*10/100)*crosswalkCounter;
     tempCapacity=tempCapacity-(tempCapacity*10/100)*lampCounter;
     Setcapacity(tempCapacity);
