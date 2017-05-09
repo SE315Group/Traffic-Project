@@ -5,7 +5,7 @@
 class Road{
     private:
         int roadID;// probably needs a global variable for counting, look into the constructor
-        int lineNum;
+        int laneNum;
         int direction;
         float distance;
         float capacity;
@@ -18,8 +18,8 @@ class Road{
         virtual ~Road();
         int GetroadID();
         void SetroadID(int val);
-        int GetlineNum();
-        void SetlineNum(int val);
+        int GetlaneNum();
+        void SetlaneNum(int val);
         int Getdirection();
         void Setdirection(int val);
         float Getdistance();
