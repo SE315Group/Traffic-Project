@@ -35,6 +35,7 @@ Window {
                 roadAtt.visible = true
                 roundaboutAtt.visible = false
                 sourceAtt.visible = false
+                paintCanvas.roadValue = true
             }
         }
         Image {
@@ -334,8 +335,51 @@ Window {
         anchors.leftMargin: 0
         anchors.top: toolbar.bottom
         anchors.topMargin: 0
-    }
 
+        MouseArea {
+         id: paintMouseArea
+         anchors.fill: paintarea
+        onPressed:{
+            if(paintCanvas.counter==0){
+            paintCanvas.firstX = mouseX
+            paintCanvas.firstY = mouseY
+            paintCanvas.counter = 1
+            }
+            else if(paintCanvas.counter==1){
+                    paintCanvas.lastX = mouseX
+                    paintCanvas.lastY = mouseY
+                    paintCanvas.counter = 0
+                paintCanvas.requestPaint()
+                }
+           // paintCanvas.requestPaint()
+        }
+        }
+
+        Canvas {
+          id: paintCanvas
+          anchors.fill:paintarea
+          property int firstX: 0
+          property int firstY: 0
+          property int lastX: 0
+          property int lastY: 0
+          property bool roadValue: false
+          property int counter: 0
+
+          onPaint: {
+              var ctx = paintCanvas.getContext("2d");
+              if(roadValue){
+              ctx.strokeStyle = "black"
+              ctx.lineWidth=1;
+              ctx.beginPath();
+              ctx.moveTo(firstX,firstY);
+              ctx.lineTo(lastX,lastY);
+              ctx.stroke();
+
+                }
+        }
+
+    }
+     }
     Rectangle {
         id: run
         x: 583
