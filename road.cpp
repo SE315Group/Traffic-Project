@@ -2,36 +2,39 @@
 
 road::road()
 {
-    roadLinePointX1 = 0;
-    roadLinePointX2 = 0;
-    roadLinePointY1 = 0;
-    roadLinePointY2 = 0;
+    linePointX1 = 0;
+    linePointX2 = 0;
+    linePointY1 = 0;
+    linePointY2 = 0;
+
 }
 
-void road::setRoadLinePointX1(int value){
-    roadLinePointX1 = value;
+void road::setLinePointX1(int value){
+    linePointX1 = value;
 }
 
-int road::getRoadLinePointX1(){
-    return roadLinePointX1;
+int road::getLinePointX1(){
+    return linePointX1;
 }
 
-void road::setRoadLinePointX2(int value){
-    roadLinePointX2 = value;
+void road::setLinePointX2(int value){
+    linePointX2 = value;
 }
 
-int road::getRoadLinePointX2(){
-    return roadLinePointX2;
+int road::getLinePointX2(){
+    return linePointX2;
 }
-void road::setRoadLinePointY1(int value){
-    roadLinePointY1 = value;
+void road::setLinePointY1(int value){
+    linePointY1 = value;
 }
-int road::getRoadLinePointY1(){
-    return roadLinePointY1;
+
+int road::getLinePointY1(){
+    return linePointY1;
 }
-void road::setRoadLinePointY2(int value){
-    roadLinePointY2 = value;
+void road::setLinePointY2(int value){
+    linePointY2 = value;
 }
-int road::getRoadLinePointY2(){
-    return roadLinePointY2;
+
+int road::getLinePointY2(){
+    return linePointY2;
 }
