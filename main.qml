@@ -40,6 +40,11 @@ Window {
             onEntered: {
                 road.color = "#a19e9e"
             }
+            onClicked: {
+                mouseArea.roadSwitch = 1
+                paintCanvas.roadSwitcher = 1
+            }
+
             onExited: {
                 road.color = "#cdc9c9"
             }
@@ -86,6 +91,11 @@ Window {
             onEntered: {
                 roundabout.color = "#a19e9e"
             }
+            onClicked: {
+                mouseArea.roadSwitch = 2
+                paintCanvas.roadSwitcher = 2
+            }
+
             onExited: {
                 roundabout.color = "#cdc9c9"
             }
@@ -288,43 +298,76 @@ Window {
     }
 
     Rectangle {
-        id : paintRectangle
-        visible: true
-        width: 400
-        height: 400
-        color : 'grey'
-        Canvas {
-            id: paintCanvas
-            anchors.fill:paintRectangle
-            property int firstX: 0
-            property int firstY: 0
-            property int lastX: 0
-            property int lastY: 0
-            onPaint: {
-                var ctx = paintCanvas.getContext("2d")
-                ctx.strokeStyle = "black"
-                ctx.moveTo(firstX,firstY)
-                ctx.lineTo(lastX,lastY)
-                ctx.stroke()
-            }
-        }
-        MouseArea {
-            id:mouseArea
-            anchors.fill : paintRectangle
-            property bool secondPressed: false
-            onPressed: {
-                if(secondPressed==false){
-                    paintCanvas.firstX = mouseX
-                    paintCanvas.firstY = mouseY
-                    guiManager.getPointsFromPaintMouseAreaForRoad1(paintCanvas.firstX,paintCanvas.firstY)
-                    secondPressed = true
+        Rectangle {
+            id : paintRectangle
+            visible: true
+            width: 400
+            height: 400
+            color : 'grey'
+            Canvas {
+                id: paintCanvas
+                anchors.fill:paintRectangle
+                property int firstX: 0
+                property int firstY: 0
+                property int lastX: 0
+                property int lastY: 0
+                property int roundAboutX: 0
+                property int roundAboutY: 0
+                property int roadSwitcher: 0
+                property bool naame: true
+                onPaint: {
+                    if(roadSwitcher==1){
+
+                    var ctx = paintCanvas.getContext("2d")
+                    ctx.strokeStyle = "black"
+                    ctx.moveTo(firstX,firstY)
+                    ctx.lineTo(lastX,lastY)
+                    //ctx.arc(lastX,lastY,10,0,Math.PI*2,false)
+                    ctx.stroke()
+                      }
+                    //The qml is giving runtime error. I searched for it but nothing come up handy.There will be no round about unfortunately.  ERKİN KURT
+                    /*else if(roadSwitcher==2){
+                        ctx.fillStyle = "white"
+                        ctx.arc(roundAboutX,roundAboutY,10,0,Math.PI*2,false)
+                        ctx.fill()
+                    } */
                 }
-                else if(secondPressed){
-                    paintCanvas.lastX = mouseX
-                    paintCanvas.lastY = mouseY
-                    guiManager.getPointsFromPaintMouseAreaForRoad2(paintCanvas.lastX,paintCanvas.lastY)
-                    paintCanvas.requestPaint()
-                    secondPressed = false
+            }
+            MouseArea {
+                id:mouseArea
+                anchors.fill : paintRectangle
+                property int roadSwitch: 0
+                property bool secondPressed: false
+                onPressed: {
+                    switch(roadSwitch){
+                    case 1:
+                    {
+                    if(secondPressed==false){
+                        paintCanvas.firstX = mouseX
+                        paintCanvas.firstY = mouseY
+                        guiManager.getPointsFromPaintMouseAreaForRoad1(paintCanvas.firstX,paintCanvas.firstY)
+                        secondPressed = true
+                    }
+                    else if(secondPressed){
+                        paintCanvas.lastX = mouseX
+                        paintCanvas.lastY = mouseY
+                        guiManager.getPointsFromPaintMouseAreaForRoad2(paintCanvas.lastX,paintCanvas.lastY)
+                        paintCanvas.requestPaint()
+                        secondPressed = false
+                    }
+                    break;
+                    }
+                    case 2:
+                    {
+                        paintCanvas.roundAboutX = mouseX
+                        paintCanvas.roundAboutY = mouseY
+                        guiManager.getPointsFromPaintMouseAreaForRoundAbout(paintCanvas.roundAboutX,paintCanvas.roundAboutY)
+                        paintCanvas.requestPaint()
+                        break;
+                    }
+                    default:
+                        break;
+                }
                 }
             }
         }
