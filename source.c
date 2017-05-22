@@ -21,7 +21,7 @@ class SOURCE
 		void setCarPerMinute(float val){carPerMinute=val;}
 
 		calculateCurrentCapacity(float tempCurrentCapacity){
-			cin>>tempCurrentCapacity;	
+			(carPerMinute*time);	
 			
 			
 };
